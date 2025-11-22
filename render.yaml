@@ -6,4 +6,3 @@ static_sites:
       - type: rewrite
         source: /*
         destination: /index.html
-
