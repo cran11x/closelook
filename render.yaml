@@ -1,5 +1,4 @@
-services:
-  - type: static
-    name: closelook-mail
+static_sites:
+  - name: closelook-mail
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
