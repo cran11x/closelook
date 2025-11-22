@@ -1,0 +1,5 @@
+{
+  "name": "Closelook Mail",
+  "description": "A high-fidelity email client inspired by Outlook, featuring AI-powered drafting and summarization using Gemini.",
+  "requestFramePermissions": []
+}
