@@ -1,4 +1,4 @@
 static_sites:
   - name: closelook-mail
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: dist
