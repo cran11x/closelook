@@ -10,6 +10,24 @@ const CURRENT_USER = {
 
 export const MOCK_EMAILS: Email[] = [
   {
+    id: 'melania_epstein',
+    folder: FolderType.Inbox,
+    from: { name: 'Melania Trump', email: 'melania@trump.com', avatar: 'https://ui-avatars.com/api/?name=Melania+Trump&background=ffd700&color=000' },
+    to: [CURRENT_USER],
+    subject: 'Donald what is ihtis',
+    snippet: 'Donald,Explain.Melania',
+    body: `Donald,
+
+Explain.
+
+Melania`,
+    date: subHours(new Date(), 0.01).toISOString(),
+    read: false,
+    flagged: false,
+    hasAttachments: true,
+    categories: []
+  },
+  {
     id: 'ye1',
     folder: FolderType.Inbox,
     from: { name: 'Ye', email: 'ye@yeezy.com', avatar: 'https://ui-avatars.com/api/?name=Kanye+West&background=000&color=fff' },

@@ -43,6 +43,7 @@ const ReadingPane: React.FC<ReadingPaneProps> = ({ email, onDelete, onReply, onR
     if (senderName.includes('Kim')) return { name: "Rocket_Launch_Codes_DO_NOT_SHARE.pdf", type: 'pdf' };
     if (senderName.includes('Vlad')) return { name: "Honey_Supply_Contract.pdf", type: 'pdf' };
     if (senderName.includes('Don Jr')) return { name: "Hunting_Map_Secret.pdf", type: 'pdf' };
+    if (senderName.includes('Melania')) return { name: "donny_and_jeff_naked_2025.jpg", type: 'jpg' };
     return { name: "Document.pdf", type: 'pdf' };
   };
 
@@ -155,6 +156,12 @@ const ReadingPane: React.FC<ReadingPaneProps> = ({ email, onDelete, onReply, onR
       
       if (fileName.endsWith('.pptx')) {
           await generatePPTX(fileName);
+      } else if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
+          // For image files, download from public folder
+          const a = document.createElement('a');
+          a.href = `/${fileName}`;
+          a.download = fileName;
+          a.click();
       } else {
           generatePDF(fileName, sender);
       }
@@ -280,28 +287,46 @@ const ReadingPane: React.FC<ReadingPaneProps> = ({ email, onDelete, onReply, onR
                 {(() => {
                     const { name, type } = getAttachmentDetails(email.from.name);
                     return (
-                        <div 
-                            onClick={() => !isGeneratingFile && handleDownload(name, email.from.name)}
-                            className="inline-flex items-center gap-3 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer max-w-[300px] transition-colors group select-none"
-                            title="Click to download"
-                        >
-                            <div className={`p-2 rounded group-hover:opacity-80 transition-opacity ${type === 'pptx' ? 'bg-orange-100 text-orange-600' : 'bg-red-50 text-red-500'}`}>
-                                {type === 'pptx' ? <Presentation className="h-5 w-5" /> : <FileText className="h-5 w-5" />}
+                        <>
+                            {(type === 'png' || type === 'jpg' || type === 'jpeg') ? (
+                                <div className="mb-4">
+                                    <img 
+                                        src={`/${name}`} 
+                                        alt={name}
+                                        className="max-w-full h-auto rounded border border-gray-200 shadow-sm"
+                                        style={{ maxHeight: '400px' }}
+                                    />
+                                </div>
+                            ) : null}
+                            <div 
+                                onClick={() => !isGeneratingFile && handleDownload(name, email.from.name)}
+                                className="inline-flex items-center gap-3 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer max-w-[300px] transition-colors group select-none"
+                                title="Click to download"
+                            >
+                                <div className={`p-2 rounded group-hover:opacity-80 transition-opacity ${
+                                    type === 'pptx' ? 'bg-orange-100 text-orange-600' : 
+                                    (type === 'png' || type === 'jpg' || type === 'jpeg') ? 'bg-blue-50 text-blue-600' : 
+                                    'bg-red-50 text-red-500'
+                                }`}>
+                                    {type === 'pptx' ? <Presentation className="h-5 w-5" /> : 
+                                     (type === 'png' || type === 'jpg' || type === 'jpeg') ? <FileIcon className="h-5 w-5" /> : 
+                                     <FileText className="h-5 w-5" />}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-medium truncate text-gray-700 group-hover:text-blue-700 transition-colors">
+                                        {name}
+                                    </p>
+                                    <p className="text-[10px] text-gray-400 group-hover:text-gray-500">
+                                        {type === 'pptx' ? '2.4 MB' : (type === 'png' || type === 'jpg' || type === 'jpeg') ? '1.2 MB' : '145 KB'}
+                                    </p>
+                                </div>
+                                {isGeneratingFile ? (
+                                    <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
+                                ) : (
+                                    <Download className="h-4 w-4 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                                )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium truncate text-gray-700 group-hover:text-blue-700 transition-colors">
-                                    {name}
-                                </p>
-                                <p className="text-[10px] text-gray-400 group-hover:text-gray-500">
-                                    {type === 'pptx' ? '2.4 MB' : '145 KB'}
-                                </p>
-                            </div>
-                            {isGeneratingFile ? (
-                                <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
-                            ) : (
-                                <Download className="h-4 w-4 text-gray-400 group-hover:text-blue-600 transition-colors" />
-                            )}
-                        </div>
+                        </>
                     );
                 })()}
             </div>
