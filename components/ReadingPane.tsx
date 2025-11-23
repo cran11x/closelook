@@ -44,6 +44,7 @@ const ReadingPane: React.FC<ReadingPaneProps> = ({ email, onDelete, onReply, onR
     if (senderName.includes('Vlad')) return { name: "Honey_Supply_Contract.pdf", type: 'pdf' };
     if (senderName.includes('Don Jr')) return { name: "Hunting_Map_Secret.pdf", type: 'pdf' };
     if (senderName.includes('Melania')) return { name: "donny_and_jeff_naked_2025.jpg", type: 'jpg' };
+    if (senderName.includes('JD Vance') || senderName.includes('Vance')) return { name: "couch.jpg", type: 'jpg' };
     return { name: "Document.pdf", type: 'pdf' };
   };
 

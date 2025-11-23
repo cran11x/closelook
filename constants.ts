@@ -10,6 +10,32 @@ const CURRENT_USER = {
 
 export const MOCK_EMAILS: Email[] = [
   {
+    id: 'jd_vance_couch',
+    folder: FolderType.Inbox,
+    from: { name: 'JD Vance', email: 'jd.vance@vp.gov', avatar: 'https://ui-avatars.com/api/?name=JD+Vance&background=003366&color=fff' },
+    to: [CURRENT_USER],
+    subject: 'Couch update',
+    snippet: 'Just left the Residence furniture inventory meeting...',
+    body: `Sir,
+
+Just left the Residence furniture inventory meeting. The new couch arrived. Leather, no cushions that can be removed and… reinterpreted.
+
+I personally tested it for 45 minutes. Zero rumors possible. You're welcome.
+
+Also, the staff asked if we still need the plastic slipcover from 2017. I said yes.
+
+Your loyal furniture defender,
+
+JD
+
+P.S. Fox just ran the chyron "VANCE CLEARS COUCH." Historic victory.`,
+    date: subHours(new Date(), 0.005).toISOString(),
+    read: false,
+    flagged: false,
+    hasAttachments: true,
+    categories: []
+  },
+  {
     id: 'melania_epstein',
     folder: FolderType.Inbox,
     from: { name: 'Melania Trump', email: 'melania@trump.com', avatar: 'https://ui-avatars.com/api/?name=Melania+Trump&background=ffd700&color=000' },
